@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import * as middlewares from "./middlewares";
+import avionController from "./pages/avionController";
 
 require("dotenv").config();
 
@@ -17,6 +18,9 @@ const app = express();
 app.use(cors(options));
 // Middleware to parse json throught requests.
 app.use(express.json());
+
+
+app.use('/avions', avionController);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
