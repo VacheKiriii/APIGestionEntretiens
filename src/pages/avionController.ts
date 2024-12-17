@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { Avion } from '../types/types';
-import { handleGetAvions } from '../managers/avionManager';
-// import { deleteAvion, getAvions } from '../controllers/avionsController';
+import { handleGetAvions, handlePostAvions } from '../managers/avionManager';
 
 const router = Router();
 
@@ -12,7 +11,17 @@ response.status(200).json(await handleGetAvions(request, next))
         
     }
  });
-// router.delete('/:immatriculation', deleteAvion);
-console.log("coucou")
+
+ router.post('/', async(request: Request, response: Response<Avion[]>, next: NextFunction)=>{
+    try {
+response.status(200).json(await handlePostAvions(request, next))
+    } catch(error) {
+        
+    }
+ });
+
+
+//  router.put();
+//  router.delete();
 
 export default router;
