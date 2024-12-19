@@ -3,7 +3,6 @@ import { avionDel, avionModel, avionPost } from "../models/avionModel";
 import { Avion } from "../types/types";
 
 
-
 export const handleGetAvions = async(request:Request, next:NextFunction)=>{
     try {
         return await avionModel.getAll()
