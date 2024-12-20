@@ -35,23 +35,5 @@ response.status(200).json(await handlePostAvions(request, next))
     }
 });
 
-export const updateAvion = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const numeroDeSerie = req.params.numeroDeSerie;
-        const data = req.body;
-
-        // Appel du manager pour traiter la mise à jour
-        const result = await handleUpdateAvion(numeroDeSerie, data);
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: `Aucun avion trouvé avec le numéro de série : ${numeroDeSerie}.` });
-        }
-
-        return res.status(200).json({ message: 'Avion mis à jour avec succès.' });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Erreur lors de la mise à jour de l'avion."});
-    }
-};
 
 export default router;

@@ -58,5 +58,3 @@ export const handleUpdateAvion = async (numeroDeSerie: string, data: AvionUpdate
         throw error;
     }
 };
-
-
