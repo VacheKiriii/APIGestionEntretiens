@@ -1,5 +1,5 @@
 import { NextFunction, Request } from "express";
-import { technicienModel, technicienPost } from "../models/technicienModel";
+import { technicienDel, technicienModel, technicienPost } from "../models/technicienModel";
 import { Technicien } from "../types/types";
 
 
@@ -26,3 +26,12 @@ export const handlePostTechnicien = async(request:Request, next:NextFunction)=>{
     
     }
 }
+
+export const handleDeleteTechnicien = async (id?: number) => {
+    try {
+        return await technicienDel.deleteOne(id);
+    } catch (error) {
+        console.error('Erreur dans handleDeleteAvions :', error);
+        throw error;
+    }
+};

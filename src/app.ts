@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import * as middlewares from "./middlewares";
 import avionController from "./pages/avionController";
+import maintenanceController from "./pages/maintenanceController";
+import technicienController from "./pages/technicienController";
 
 require("dotenv").config();
 
@@ -21,6 +23,8 @@ app.use(express.json());
 
 
 app.use('/avions', avionController);
+app.use('/maintenance', maintenanceController);
+app.use('/technicien', technicienController);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

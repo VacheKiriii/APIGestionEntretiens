@@ -28,3 +28,21 @@ addOne:async(maintenance:Maintenance)=>{
         }
     }
 }
+
+export const maintenanceDel = {
+    deleteOne: async (id?: number) => {
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            const query = 'DELETE FROM maintenance WHERE numéro_serie = ?';
+            const result = await connection.query(query, [id]);
+            return result;
+        } catch (error) {
+            console.error('Erreur dans deleteOne :', error);
+            throw error;
+        } finally {
+            if (connection) connection.release();
+        }
+    }
+};
+

@@ -30,15 +30,35 @@ addOne:async(avion:Avion)=>{
 }
 
 export const avionDel = {
-    deleteOne:async(avion: Avion)=>{
+    deleteOne: async (numeroDeSerie: String) => {
         let connection;
-        console.log(avion)
-        try{
+        try {
             connection = await pool.getConnection();
-            const rows = await pool.query('DELETE FROM avion WHERE avion.numero_serie = ', [avion.numeroDeSerie])
-            return rows;
-        } catch (error) { 
+            const query = 'DELETE FROM avion WHERE numéro_serie = ?';
+            const result = await connection.query(query, [numeroDeSerie]);
+            return result;
+        } catch (error) {
+            console.error('Erreur dans deleteOne :', error);
+            throw error;
+        } finally {
             if (connection) connection.release();
         }
     }
-}
+};
+
+
+export const avionPut = {
+    updateOne: async (numeroDeSerie: string, fieldsToUpdate: { [key: string]: any }) => {
+        const keys = Object.keys(fieldsToUpdate);
+        const values = Object.values(fieldsToUpdate);
+
+        // Construire dynamiquement la requête SQL
+        const setClause = keys.map((key) => `${key} = ?`).join(', ');
+        const query = `UPDATE avion SET ${setClause} WHERE numero_serie = ?`;
+
+        // Ajout de `numeroDeSerie` à la fin des valeurs
+        values.push(numeroDeSerie);
+
+        return await pool.query(query, values);
+    },
+};
